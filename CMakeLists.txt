@@ -8,7 +8,7 @@
 #
 
 project("ubpf")
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.12.2)
 
 if (UBPF_INSTALL_GIT_HOOKS AND EXISTS "${PROJECT_SOURCE_DIR}/.git/hooks")
     # Install Git pre-commit hook
