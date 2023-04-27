@@ -50,7 +50,7 @@ struct ubpf_vm;
 /**
  * @brief Opaque type for a uBPF JIT compiled function.
  */
-typedef uint64_t (*ubpf_jit_fn)(void* mem, size_t mem_len);
+typedef uint64_t (*ubpf_jit_fn)(void* mem, size_t mem_len, void* shared, size_t shared_len);
 
 /**
  * @brief Create a new uBPF VM.
@@ -180,7 +180,7 @@ ubpf_load_elf(struct ubpf_vm* vm, const void* elf, size_t elf_len, char** errmsg
  * @retval -1 Failure.
  */
 int
-ubpf_exec(const struct ubpf_vm* vm, void* mem, size_t mem_len, uint64_t* bpf_return_value);
+ubpf_exec(const struct ubpf_vm* vm, void* mem, size_t mem_len, uint64_t* bpf_return_value, void* shared, size_t shared_len);
 
 /**
  * @brief Compile a BPF program in the VM to native code.

@@ -78,7 +78,7 @@ ubpf_create(void)
         return NULL;
     }
 
-    vm->bounds_check_enabled = true;
+    vm->bounds_check_enabled = false; // Warning: Disabled to allow for out-of-bounds memory access wrt. the shared slot
     vm->error_printf = fprintf;
 
 #if defined(__x86_64__) || defined(_M_X64)
@@ -255,7 +255,7 @@ ubpf_mem_store(uint64_t address, uint64_t value, size_t size)
 }
 
 int
-ubpf_exec(const struct ubpf_vm* vm, void* mem, size_t mem_len, uint64_t* bpf_return_value)
+ubpf_exec(const struct ubpf_vm* vm, void* mem, size_t mem_len, uint64_t* bpf_return_value, void* shared, size_t shared_len)
 {
     uint16_t pc = 0;
     const struct ebpf_inst* insts = vm->insts;
@@ -279,6 +279,8 @@ ubpf_exec(const struct ubpf_vm* vm, void* mem, size_t mem_len, uint64_t* bpf_ret
 
     reg[1] = (uintptr_t)mem;
     reg[2] = (uint64_t)mem_len;
+    reg[3] = (uintptr_t)shared;
+    reg[4] = (uint64_t)shared_len;
     reg[10] = (uintptr_t)stack + sizeof(stack);
 
     while (1) {
