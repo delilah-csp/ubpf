@@ -39,7 +39,7 @@ extern "C" {
  * @brief Default stack size for the VM.
  */
 #if !defined(UBPF_STACK_SIZE)
-#define UBPF_STACK_SIZE 512
+#define UBPF_STACK_SIZE 1024 * 1024
 #endif
 
 /**
