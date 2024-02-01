@@ -39,7 +39,8 @@ extern "C" {
  * @brief Default stack size for the VM.
  */
 #if !defined(UBPF_STACK_SIZE)
-#define UBPF_STACK_SIZE 1024 * 1024
+// TODO: https://github.com/delilah-csp/delilah/issues/3
+#define UBPF_STACK_SIZE 512
 #endif
 
 /**
