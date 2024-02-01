@@ -192,9 +192,9 @@ load:
             free(mem);
             return 1;
         }
-        ret = fn(mem, mem_len);
+        ret = fn(mem, mem_len, NULL, 0);
     } else {
-        if (ubpf_exec(vm, mem, mem_len, &ret) < 0)
+        if (ubpf_exec(vm, mem, mem_len, &ret, NULL, 0) < 0)
             ret = UINT64_MAX;
     }
 
